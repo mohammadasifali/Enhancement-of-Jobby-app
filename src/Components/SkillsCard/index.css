@@ -1,0 +1,23 @@
+.skill-item-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: space-between;
+}
+.skills-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.skill-image {
+  height: 30px;
+  width: 30px;
+}
+.skill-name{
+  color: white;
+  font-size: 14px;
+   font-family: 'roboto';
+   font-weight: bold;
+   margin-left: 5px;
+}

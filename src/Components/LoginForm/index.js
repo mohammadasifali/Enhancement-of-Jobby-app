@@ -69,16 +69,16 @@ class LoginForm extends Component {
     const {password} = this.state
     return (
       <>
-        <label className="input-label" htmlFor="password">
+        <label className='input-label' htmlFor='password'>
           PASSWORD
         </label>
         <input
-          type="password"
-          id="password"
-          className="input-field"
+          type='password'
+          id='password'
+          className='input-field'
           value={password}
           onChange={this.onChangePassword}
-          placeholder="password"
+          placeholder='password'
         />
       </>
     )
@@ -88,16 +88,16 @@ class LoginForm extends Component {
     const {username} = this.state
     return (
       <>
-        <label className="input-label" htmlFor="username">
+        <label className='input-label' htmlFor='username'>
           USERNAME
         </label>
         <input
-          type="text"
-          id="username"
-          className="input-field"
+          type='text'
+          id='username'
+          className='input-field'
           value={username}
           onChange={this.onChangeUsername}
-          placeholder="username"
+          placeholder='username'
         />
       </>
     )
@@ -108,24 +108,24 @@ class LoginForm extends Component {
 
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
-      return <Redirect to="/" />
+      return <Redirect to='/' />
     } // when already logged in user tries to access login page it redirects to home page
 
     return (
       <>
-        <div className="login-form-container">
-          <form className="form-container" onSubmit={this.submitForm}>
+        <div className='login-form-container'>
+          <form className='form-container' onSubmit={this.submitForm}>
             <img
-              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-              className="website-logo"
-              alt="website logo"
+              src='https://assets.ccbp.in/frontend/react-js/logo-img.png'
+              className='website-logo'
+              alt='website logo'
             />
-            <div className="input-container">{this.renderUserNameField()}</div>
-            <div className="input-container">{this.renderPasswordField()}</div>
-            <button className="login-button" type="submit">
+            <div className='input-container'>{this.renderUserNameField()}</div>
+            <div className='input-container'>{this.renderPasswordField()}</div>
+            <button className='login-button' type='submit'>
               Login
             </button>
-            {showSubmitError && <p className="error-message">*{errorMsg}</p>}
+            {showSubmitError && <p className='error-message'>*{errorMsg}</p>}
           </form>
         </div>
       </>

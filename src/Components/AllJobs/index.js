@@ -82,7 +82,7 @@ class AllJobs extends Component {
   onGetProfileDetails = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
-    
+
     const {checkboxInputs, radioInput, searchInput} = this.state
     const profileApiUrl = 'https://apis.ccbp.in/profile'
     const optionsProfile = {
@@ -164,7 +164,6 @@ class AllJobs extends Component {
         eachItem => eachItem !== event.target.id,
       )
       this.setState(
-        
         prevState => ({checkboxInputs: filteredData}),
         this.onGetJobDetails,
       )
@@ -335,7 +334,6 @@ class AllJobs extends Component {
   }
 
   render() {
-    
     const {checkboxInputs, radioInput, searchInput} = this.state
     return (
       <>

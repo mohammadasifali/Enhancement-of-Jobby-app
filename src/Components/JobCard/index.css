@@ -29,10 +29,10 @@
   justify-content: center;
 }
 .title-heading {
-  color: white;
+  color: #ffffff;
   font-size: 20px;
   font-weight: bold;
-  font-family: 'roboto';
+  font-family: 'Roboto';
   margin-bottom: 0px;
 }
 .rating-container {
@@ -46,11 +46,13 @@
   margin-right: 10px;
 }
 .rating-heading {
-  color: white;
+  color: #ffffff;
   font-size: 18px;
   font-weight: bold;
-  font-family: 'roboto';
+
+  font-family: 'Roboto';
 }
+
 .location-package-container {
   display: flex;
   flex-direction: row;
@@ -68,19 +70,24 @@
   padding-left: 5px;
 }
 .location-icon {
-  color: white;
+  color: #ffffff;
   font-size: 22px;
   margin-right: 6px;
 }
 .brief-case-icon {
-  color: white;
+  color: #ffffff;
   font-size: 22px;
   margin-right: 10px;
 }
 .location-heading {
-  color: white;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Roboto';
+}
+.package-heading {
+  color: #ffffff;
   font-size: 18px;
-  font-family: 'roboto';
+  font-family: 'Roboto';
   font-weight: 500;
 }
 .employee-type-container {
@@ -89,24 +96,25 @@
   padding-left: 5px;
 }
 .employee-type-heading {
-  color: white;
+  color: #ffffff;
   font-size: 14px;
-  font-family: 'roboto';
+  font-family: 'Roboto';
 }
+
 .line {
   color: #7e858e;
   width: 100%;
 }
 .description-heading {
-  color: white;
+  color: #ffffff;
   font-size: 20px;
   font-weight: bold;
-  font-family: 'roboto';
+  font-family: 'Roboto';
   margin-bottom: 0px;
 }
 .description-text {
-  color: white;
+  color: #ffffff;
   font-size: 15px;
   line-height: 1.8;
-  font-family: 'roboto';
+  font-family: 'Roboto';
 }

@@ -39,6 +39,8 @@ class ProfileDetails extends Component {
         shortBio: data.profile_details.short_bio,
       }
       this.setState({apiStatus: apiStatusConstants.success, profileData})
+      //   console.log(profileData)
+      //   console.log(typeof profileData)
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
@@ -52,6 +54,8 @@ class ProfileDetails extends Component {
         <img src={profileImageUrl} alt="profile" className="profile-img" />
         <h1 className="profile-heading">{name}</h1>
         <p className="profile-bio">{shortBio}</p>
+        <h1 className="profile-heading">Mohammad Asif Ali</h1>
+        <p className="profile-bio">Frontend Developer</p>
       </div>
     )
   }
@@ -60,7 +64,7 @@ class ProfileDetails extends Component {
     <div className="profile-error-view-container">
       <button
         type="button"
-        id="button"
+        data-testid="button"
         className="profile-failure-button"
         onClick={this.getProfile}
       >
@@ -70,13 +74,14 @@ class ProfileDetails extends Component {
   )
 
   renderLoadingView = () => (
-    <div className="profile-loader-container " id="loader">
+    <div className="profile-loader-container " data-testid="loader">
       <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
     </div>
   )
 
-  render() {
+  renderProfileDetails = () => {
     const {apiStatus} = this.state
+    // console.log(apiStatus)
 
     switch (apiStatus) {
       case apiStatusConstants.success:
@@ -88,6 +93,11 @@ class ProfileDetails extends Component {
       default:
         return null
     }
+  }
+
+  render() {
+    // console.log('render')
+    return <>{this.renderProfileDetails()}</>
   }
 }
 

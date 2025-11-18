@@ -6,7 +6,6 @@ import {BiLinkExternal} from 'react-icons/bi'
 import {MdLocationOn} from 'react-icons/md'
 
 import Header from '../Header'
-
 import SimilarJobItem from '../SimilarJobItem'
 import SkillsCard from '../SkillsCard'
 import './index.css'
@@ -77,13 +76,14 @@ class JobItemDetails extends Component {
     const response = await fetch(url, options)
     if (response.ok === true) {
       const data = await response.json()
-      console.log(data)
+      // console.log(data)
       const updatedData = this.getFormattedData(data.job_details)
+      // console.log(updatedData)
       const updatedSimilarJobsData = data.similar_jobs.map(eachSimilarJob =>
         this.getFormattedSimilarData(eachSimilarJob),
       )
-      console.log(updatedData)
-      console.log(updatedSimilarJobsData)
+      // console.log(updatedData)
+      // console.log(updatedSimilarJobsData)
       this.setState({
         jobData: updatedData,
         similarJobsData: updatedSimilarJobsData,
@@ -97,7 +97,7 @@ class JobItemDetails extends Component {
   renderFailureView = () => {
     const {match} = this.props
     const {params} = match
-
+    // eslint-disable-next-line
     const {id} = params
     return (
       <div className="job-item-error-view-container">
@@ -115,7 +115,7 @@ class JobItemDetails extends Component {
 
         <button
           type="button"
-          id="button"
+          data-testid="button"
           className="job-item-failure-button"
           onClick={this.getJobData}
         >

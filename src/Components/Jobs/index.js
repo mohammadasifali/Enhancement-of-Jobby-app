@@ -45,6 +45,7 @@ const salaryRangesList = [
     label: '40 LPA and above',
   },
 ]
+const locations = ['Hyderabad', 'Bangalore', 'Chennai', 'Delhi', 'Mumbai']
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -57,9 +58,10 @@ class Jobs extends Component {
   state = {
     jobsList: [],
     apiStatus: apiStatusConstants.initial,
-    employeeType: [],
-    minimumSalary: 0,
+    employeeTypeList: [],
+    minimumSalary: '',
     searchInput: '',
+    selectedLocations: [],
   }
 
   componentDidMount() {
@@ -70,8 +72,11 @@ class Jobs extends Component {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
-    const {employeeType, minimumSalary, searchInput} = this.state
-    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeType.join()}&minimum_package=${minimumSalary}&search=${searchInput}`
+    const {employeeTypeList, minimumSalary, searchInput, selectedLocations} =
+      this.state
+    console.log(selectedLocations)
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeList.join()}&minimum_package=${minimumSalary}&search=${searchInput}`
+
     const jwtToken = Cookies.get('jwt_token')
 
     const options = {
@@ -83,6 +88,7 @@ class Jobs extends Component {
     const response = await fetch(apiUrl, options)
     if (response.ok === true) {
       const data = await response.json()
+      console.log(data.jobs) //array of 60 objects
       const updatedJobsData = data.jobs.map(eachJob => ({
         companyLogoUrl: eachJob.company_logo_url,
         employmentType: eachJob.employment_type,
@@ -93,8 +99,15 @@ class Jobs extends Component {
         rating: eachJob.rating,
         title: eachJob.title,
       }))
+      //Filtering the locations to display the data based on that selected location
+      let filteredJobs = updatedJobsData
+      if (selectedLocations.length > 0) {
+        filteredJobs = updatedJobsData.filter(job =>
+          selectedLocations.includes(job.location),
+        )
+      }
       this.setState({
-        jobsList: updatedJobsData,
+        jobsList: filteredJobs,
         apiStatus: apiStatusConstants.success,
       })
     } else {
@@ -102,6 +115,19 @@ class Jobs extends Component {
         apiStatus: apiStatusConstants.failure,
       })
     }
+  }
+
+  //Updating the selected locations
+  updateSelectedLocations = location => {
+    const {selectedLocations} = this.state
+    let updatedList = []
+    if (selectedLocations.includes(location)) {
+      updatedList = selectedLocations.filter(each => each !== location)
+    } else {
+      updatedList = [...selectedLocations, location]
+    }
+
+    this.setState({selectedLocations: updatedList}, this.getJobs)
   }
 
   renderJobsList = () => {
@@ -174,6 +200,35 @@ class Jobs extends Component {
     }
   }
 
+  changeSalary = salaryRangeId => {
+    // console.log(salary)
+    this.setState({minimumSalary: salaryRangeId}, this.getJobs)
+  }
+
+  changeEmployeeList = type => {
+    const {employeeTypeList} = this.state
+
+    const inputNotInList = employeeTypeList.filter(
+      eachItem => eachItem === type,
+    )
+    // console.log(inputNotInList)
+    if (inputNotInList.length === 0) {
+      this.setState(
+        prevState => ({
+          employeeTypeList: [...prevState.employeeTypeList, type],
+        }),
+        this.getJobs,
+      )
+    } else {
+      const filteredData = employeeTypeList.filter(
+        eachItem => eachItem !== type,
+      )
+      // console.log(filteredData)
+
+      this.setState({employeeTypeList: filteredData}, this.getJobs)
+    }
+  }
+
   changeSearchInput = event => {
     this.setState({searchInput: event.target.value})
   }
@@ -182,17 +237,6 @@ class Jobs extends Component {
     if (event.key === 'Enter') {
       this.getJobs()
     }
-  }
-
-  changeSalary = salary => {
-    this.setState({minimumSalary: salary}, this.getJobs)
-  }
-
-  changeEmployeeList = type => {
-    this.setState(
-      prev => ({employeeType: [...prev.employeeType, type]}),
-      this.getJobs,
-    )
   }
 
   render() {
@@ -210,6 +254,8 @@ class Jobs extends Component {
               getJobs={this.getJobs}
               changeSalary={this.changeSalary}
               changeEmployeeList={this.changeEmployeeList}
+              updateSelectedLocations={this.updateSelectedLocations}
+              locations={locations}
             />
             <div className="search-input-jobs-list-container">
               <div className="search-input-container-desktop">
@@ -226,6 +272,7 @@ class Jobs extends Component {
                   className="search-button-container-desktop"
                   onClick={this.getJobs}
                 >
+                  <span className="visually-hidden">Search</span>
                   <BsSearch className="search-icon-desktop" />
                 </button>
               </div>

@@ -72,8 +72,12 @@ class Jobs extends Component {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
-    const {employeeTypeList, minimumSalary, searchInput, selectedLocations} =
-      this.state
+    const {
+      employeeTypeList,
+      minimumSalary,
+      searchInput,
+      selectedLocations,
+    } = this.state
     console.log(selectedLocations)
     const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeList.join()}&minimum_package=${minimumSalary}&search=${searchInput}`
 
@@ -88,7 +92,7 @@ class Jobs extends Component {
     const response = await fetch(apiUrl, options)
     if (response.ok === true) {
       const data = await response.json()
-      console.log(data.jobs) //array of 60 objects
+      console.log(data.jobs) // array of 60 objects
       const updatedJobsData = data.jobs.map(eachJob => ({
         companyLogoUrl: eachJob.company_logo_url,
         employmentType: eachJob.employment_type,
@@ -99,7 +103,7 @@ class Jobs extends Component {
         rating: eachJob.rating,
         title: eachJob.title,
       }))
-      //Filtering the locations to display the data based on that selected location
+      // Filtering the locations to display the data based on that selected location
       let filteredJobs = updatedJobsData
       if (selectedLocations.length > 0) {
         filteredJobs = updatedJobsData.filter(job =>
@@ -117,7 +121,7 @@ class Jobs extends Component {
     }
   }
 
-  //Updating the selected locations
+  // Updating the selected locations
   updateSelectedLocations = location => {
     const {selectedLocations} = this.state
     let updatedList = []
